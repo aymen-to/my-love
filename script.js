@@ -192,7 +192,7 @@ window.addEventListener('scroll', () => {
     {
       tag: 'STRENGTH',
       title: 'The Quiet Strength She Carries',
-      desc: 'She handles everything that she dont desserve to suffer from  — but you know there\'s big strength behind you.',
+      desc: 'She handles everything that she dont desserve to suffer from  — but i know there\'s big strength behind you.',
     },
     {
       tag: 'LOVE',
