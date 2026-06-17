@@ -383,7 +383,7 @@ window.addEventListener('scroll', () => {
       return;
     }
 
-    // Animate button
+    // Animate button 
     submitBtn.textContent = 'Sending… 💌';
     submitBtn.disabled = true;
 
@@ -395,6 +395,7 @@ window.addEventListener('scroll', () => {
       if (GOOGLE_SHEET_URL !== 'https://script.google.com/macros/s/AKfycbwAjNM17I7YyinfDscCRvDm1bu9L2x35WMdXKQ_HrsLOzVxi85-1oOeJP5GEdq3nstV/exec') {
       await fetch(GOOGLE_SHEET_URL, {
   method: 'POST',
+  mode: 'no-cors',
   body: new URLSearchParams({
     mood: mood,
     message: message,
