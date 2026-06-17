@@ -192,7 +192,7 @@ window.addEventListener('scroll', () => {
     {
       tag: 'STRENGTH',
       title: 'The Quiet Strength She Carries',
-      desc: 'She handles everything that she dont desserve to suffer from  — but i know there\'s big strength behind you.',
+      desc: 'She handles everything that she dont desserve to suffer from  — but you know there\'s big strength behind you.',
     },
     {
       tag: 'LOVE',
@@ -392,13 +392,16 @@ window.addEventListener('scroll', () => {
 
     try {
       // When connected to Google Sheets, this will post data
-      if (GOOGLE_SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        await fetch(GOOGLE_SHEET_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ mood, message, color, timestamp: new Date().toISOString() }),
-        });
+      if (GOOGLE_SHEET_URL !== 'https://script.google.com/macros/s/AKfycbwAjNM17I7YyinfDscCRvDm1bu9L2x35WMdXKQ_HrsLOzVxi85-1oOeJP5GEdq3nstV/exec') {
+      await fetch(GOOGLE_SHEET_URL, {
+  method: 'POST',
+  body: new URLSearchParams({
+    mood: mood,
+    message: message,
+    color: color,
+    timestamp: new Date().toISOString()
+  })
+});
       }
 
       // Show success
