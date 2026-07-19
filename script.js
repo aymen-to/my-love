@@ -4,6 +4,35 @@ RIHAM — Women of the Year · Script
 
 'use strict';
 
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwAjNM17I7YyinfDscCRvDm1bu9L2x35WMdXKQ_HrsLOzVxi85-1oOeJP5GEdq3nstV/exec';
+
+async function sendEnvelopeOpenedNotification() {
+  if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL.includes('YOUR_')) {
+    console.warn('Set GOOGLE_APPS_SCRIPT_URL in script.js to enable Gmail notifications.');
+    return;
+  }
+
+  try {
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+      },
+      body: new URLSearchParams({
+        mood: 'Envelope opened',
+        message: 'The envelope was opened on the page.',
+        color: '',
+        type: 'envelope-opened',
+        timestamp: new Date().toISOString(),
+        page: window.location.href
+      })
+    });
+  } catch (error) {
+    console.warn('Envelope notification failed:', error);
+  }
+}
+
 /* ═══════════════════ NAV SCROLL ═══════════════════════════ */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
@@ -260,6 +289,7 @@ window.addEventListener('scroll', () => {
       // Second click: open
       envelope.classList.add('open');
       stateEl.textContent = 'Read it…';
+      sendEnvelopeOpenedNotification();
     }
   }
 
@@ -357,11 +387,8 @@ window.addEventListener('scroll', () => {
       submitBtn.disabled = true;
     }
 
-    // Google Apps Script Web App URL (deployed)
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwAjNM17I7YyinfDscCRvDm1bu9L2x35WMdXKQ_HrsLOzVxi85-1oOeJP5GEdq3nstV/exec';
-
     try {
-      const response = await fetch(GOOGLE_SHEET_URL, {
+      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: new URLSearchParams({
